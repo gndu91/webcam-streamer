@@ -6,7 +6,10 @@ import time
 import base64
 import os
 import logging
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 try:
     import ConfigParser as configparser
 except ImportError:
@@ -21,7 +24,7 @@ from flask.ext.socketio import SocketIO, emit
 config = configparser.ConfigParser()
 
 from defaults import defaults
-defaults_buf = StringIO.StringIO(defaults)
+defaults_buf = StringIO(defaults)
 try:
     config.read_file(defaults_buf)
 except AttributeError:
